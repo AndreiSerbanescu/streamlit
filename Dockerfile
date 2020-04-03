@@ -60,4 +60,4 @@ RUN pip3 install mypy-protobuf
 RUN cd /app/streamlit/lib && pipenv --three
 RUN cd /app/streamlit && pipenv run make all-devel
 
-
+RUN cd /app/streamlit/frontend && yarn upgrade
