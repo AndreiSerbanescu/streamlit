@@ -56,6 +56,7 @@ ENV LANG C.UTF-8
 
 RUN npm install -g yarn
 # Set up pipenv and run make
+RUN pip3 install mypy-protobuf
 RUN cd /app/streamlit/lib && pipenv --three
 RUN cd /app/streamlit && pipenv run make all-devel
 
