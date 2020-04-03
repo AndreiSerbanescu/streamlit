@@ -7,6 +7,7 @@ RUN apt-get install curl -y
 
 RUN apt-get install gnupg2 -y
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+# update Node version
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 
@@ -20,7 +21,15 @@ RUN curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-instal
 RUN apt install graphviz python3-distutils -y
 
 # Install Yarn, pip, Protobuf, npm
-RUN apt install yarn npm protobuf-compiler libgconf-2-4 -y
+#RUN apt install npm protobuf-compiler libgconf-2-4 -y
+#RUN npm install --global yarn
+#RUN npm install --global npm@latest
+RUN apt install npm protobuf-compiler libgconf-2-4 -y
+RUN npm install npm@latest -g
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt install nodejs -y
+RUN npm -v
+
 # (libgconf is for our e2e tests in Cypress)
 
 
@@ -44,6 +53,9 @@ COPY frontend /app/streamlit/frontend
 
 ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
+
+RUN npm install -g yarn
+# Set up pipenv and run make
 RUN cd /app/streamlit/lib && pipenv --three
 RUN cd /app/streamlit && pipenv run make all-devel
 
