@@ -61,3 +61,6 @@ RUN cd /app/streamlit/lib && pipenv --three
 RUN cd /app/streamlit && pipenv run make all-devel
 
 RUN cd /app/streamlit/frontend && yarn upgrade
+
+RUN mkdir /root/.streamlit
+COPY config.toml /root/.streamlit/config.toml
